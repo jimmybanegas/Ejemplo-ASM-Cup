@@ -7,48 +7,67 @@ section '.data' data readable writeable
 
        str_pause db  'pause' ,0
         @intprintstr db 'Resultado: %d' ,10,0
-		temp6 dd 0
-		temp5 dd 0
-		temp4 dd 0
 		temp3 dd 0
 		temp2 dd 0
 		temp1 dd 0
-		@A@ dd 0
-		@B@ dd 0
-		@eax@ dd 0
+		@a@ dd 0
+		@b@ dd 0
+		@c@ dd 0
+		@x@ db 0
 
 
 section '.code' code readable executable
 
   start: 
-		mov eax,1
-		add eax,7
-		mov [temp1],eax
-		mov eax,[temp1]
-		add eax,5
-		mov [temp2],eax
-		mov eax,[temp2]
-		mov [@A@],eax
-		mov eax,2
-		add eax,3
-		mov [temp3],eax
-		mov eax,[temp3]
-		add eax,4
-		mov [temp4],eax
-		mov eax,[temp4]
-		mov [@B@],eax
-		mov eax,[@A@]
-		add eax,[@B@]
-		mov [temp5],eax
-		mov eax,[temp5]
-		add eax,[@A@]
-		mov [temp6],eax
-		mov eax,[temp6]
-		mov [@eax@],eax
-		push [@eax@]
+		mov eax,0
+		mov [@a@],eax
+		
+		mov eax,5
+		mov [@b@],eax
+		
+		while1:
+		mov eax,[@b@]
+		cmp [@a@], eax
+		jle while_body1
+		jmp end_while1
+		
+		while_body1:
+		push [@a@]
 		push @intprintstr
 		call [printf]
 		add esp,8
+		mov eax,[@a@]
+		add eax,1
+		mov [temp1],eax
+		mov eax,[temp1]
+		mov [@a@],eax
+		jmp while1
+		
+		end_while1:
+		
+		mov eax,100
+		mov ecx,2
+		div ecx
+		mov [temp2],eax
+		mov eax,[temp2]
+		mov [@c@],eax
+		
+		mov eax,50
+		cmp [@c@], eax
+		je if1
+		jmp end_if1
+		
+		if1:
+		mov eax,[@c@]
+		mov ebx,2
+		mul ebx
+		mov [temp3],eax
+		push [temp3]
+		push @intprintstr
+		call [printf]
+		add esp,8
+		
+		end_if1:
     
 ;Finalizar el proceso
       push str_pause

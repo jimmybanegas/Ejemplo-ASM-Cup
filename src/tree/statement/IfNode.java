@@ -5,6 +5,8 @@
 package tree.statement;
 
 import java.util.List;
+
+import codegeneration.LabelGenerator;
 import tree.expression.ExpressionNode;
 
 /**
@@ -66,7 +68,21 @@ public class IfNode extends StatementNode {
 
     @Override
     public String generateCode() {
-        return null;
+        String ifLabel = LabelGenerator.getInstance().generateLabel("if");
+        String endIf = LabelGenerator.getInstance().generateLabel("end_if");
+
+        String cond = condition.GenerateCode().getCode();
+        String cycleCode = cond + ifLabel +
+                "\njmp " + endIf +
+                "\n\n" + ifLabel + ":\n";
+
+        for(StatementNode statementNode : ifStatements)
+        {
+            cycleCode += statementNode.generateCode();
+        }
+
+        cycleCode += "\n"+ endIf + ":\n";
+        return cycleCode;
     }
 
 

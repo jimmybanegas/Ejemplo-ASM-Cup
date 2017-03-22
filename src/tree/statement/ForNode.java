@@ -72,7 +72,6 @@ public class ForNode extends StatementNode{
             value = id.evaluate();
             value++;
             id.setValue(value);
-            
         }
     }
 

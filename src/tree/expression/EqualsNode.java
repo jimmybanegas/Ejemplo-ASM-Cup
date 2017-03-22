@@ -23,7 +23,14 @@ public class EqualsNode extends BinaryOperatorNode{
 
     @Override
     public ExpressionCode GenerateCode() {
-        return null;
+        ExpressionCode raitoCode = raito.GenerateCode();
+        ExpressionCode leftouCode = leftou.GenerateCode();
+
+        String code = "mov eax," + raitoCode.getDestination() +
+                "\ncmp " + leftouCode.getDestination() + ", eax"+
+                "\nje ";
+
+        return new ExpressionCode(code,"");
     }
 
 }

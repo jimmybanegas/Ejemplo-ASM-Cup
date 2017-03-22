@@ -1,11 +1,21 @@
 
-int A;
-int B;
-int eax;
+int a;
+int b;
+int c;
 
-A = 1 + 7 + 5;
+string x;
 
-B = 2+3+4;
-eax = A+B+A;
+a = 0;
+b = 5;
+while(a <= b )
+{
+   purinto a;
+   a = a+1;
+}
 
-purinto eax;
+c = 100/2;
+
+if (c == 50 )
+{
+    purinto c * 2;
+}

@@ -5,6 +5,7 @@
 package tree.expression;
 
 import codegeneration.ExpressionCode;
+import codegeneration.VariableGenerator;
 
 /**
  *
@@ -23,7 +24,16 @@ public class MultNode extends BinaryOperatorNode{
 
     @Override
     public ExpressionCode GenerateCode() {
-        return null;
-    }
+        ExpressionCode raitoCode = raito.GenerateCode();
+        ExpressionCode leftouCode = leftou.GenerateCode();
+        String destination = "["+ VariableGenerator.getInstance().declareTempIntVariable()+"]";
 
+        String code = leftouCode.getCode()+raitoCode.getCode()+
+                "mov eax,"+leftouCode.getDestination()+"\n"+
+                "mov ebx,"+raitoCode.getDestination()+"\n"+
+                "mul ebx\n"+
+                "mov "+destination+",eax\n";
+
+        return new ExpressionCode(code,destination);
+    }
 }

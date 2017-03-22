@@ -21,7 +21,7 @@ public class Main {
             for(StatementNode stmnt:result)
             {
                 if (!(stmnt instanceof IdDeclarationNode))
-                    code+= stmnt.generateCode();
+                    code+= stmnt.generateCode() +"\n";
                 else
                     declarations+=stmnt.generateCode();
 

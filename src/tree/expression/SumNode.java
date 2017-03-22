@@ -28,10 +28,12 @@ public class SumNode extends BinaryOperatorNode{
         ExpressionCode leftouCode = leftou.GenerateCode();
 
         String destination = "["+VariableGenerator.getInstance().declareTempIntVariable()+"]";
+
         String code = leftouCode.getCode()+raitoCode.getCode()+
                       "mov eax,"+leftouCode.getDestination()+"\n"+
                       "add eax,"+raitoCode.getDestination()+"\n"+
                       "mov "+destination+",eax\n";
+
         return new ExpressionCode(code,destination);
     }
 

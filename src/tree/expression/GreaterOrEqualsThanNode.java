@@ -23,7 +23,13 @@ public class GreaterOrEqualsThanNode extends BinaryOperatorNode{
 
     @Override
     public ExpressionCode GenerateCode() {
-        return null;
-    }
+        ExpressionCode raitoCode = raito.GenerateCode();
+        ExpressionCode leftouCode = leftou.GenerateCode();
 
+        String code = "mov eax," + raitoCode.getDestination() +
+                "\ncmp " + leftouCode.getDestination() + ", eax"+
+                "\njge ";
+
+        return new ExpressionCode(code,"");
+    }
 }
