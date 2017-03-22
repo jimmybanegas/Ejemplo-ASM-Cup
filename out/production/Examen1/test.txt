@@ -1,0 +1,11 @@
+
+int A;
+int B;
+int eax;
+
+A = 1 + 7 + 5;
+
+B = 2+3+4;
+eax = A+B+A;
+
+purinto eax;
