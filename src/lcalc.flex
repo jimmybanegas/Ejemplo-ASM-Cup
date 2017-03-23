@@ -33,6 +33,7 @@ dec_int_id = [A-Za-z_][A-Za-z_0-9]*
     ")"                {  return symbol(sym.RPAREN); }
     "="                 { return symbol(sym.EQUALS); }
     "purinto"           { return symbol(sym.PRINT); }
+    "scanf"                 { return symbol(sym.SCANF); }
     "if"                { return symbol(sym.IF); }
     "else"              { return symbol(sym.ELSE); }
     "{"                 { return symbol(sym.LCURLY); }

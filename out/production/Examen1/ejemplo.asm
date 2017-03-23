@@ -7,12 +7,14 @@ section '.data' data readable writeable
 
        str_pause db  'pause' ,0
         @intprintstr db 'Resultado: %d' ,10,0
+   @intscanstr db '%d',0
 		temp3 dd 0
 		temp2 dd 0
 		temp1 dd 0
 		@a@ dd 0
 		@b@ dd 0
 		@c@ dd 0
+		@d@ dd 0
 		@x@ db 0
 
 
@@ -68,6 +70,26 @@ section '.code' code readable executable
 		add esp,8
 		
 		end_if1:
+		
+		mov eax,0
+		mov [@d@],eax
+		
+		for1:
+		mov eax, 2
+		cmp [@d@], eax
+		jge end_for1
+		push @a@
+		push @intscanstr
+		call [scanf]
+		add esp, 8
+		push [@a@]
+		push @intprintstr
+		call [printf]
+		add esp,8
+		inc [@d@]
+		jmp for1
+		
+		end_for1:
     
 ;Finalizar el proceso
       push str_pause

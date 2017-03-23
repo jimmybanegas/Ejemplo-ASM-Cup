@@ -30,7 +30,7 @@ parser code {:
 
     public HashMap<String,Integer> vars = new HashMap<String,Integer>();
 :};   
-terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, EQUALS, PRINT, IF, LCURLY, RCURLY, ELSE, WHILE, LBRACK, RBRACK, OF;
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, EQUALS, PRINT, IF, LCURLY, RCURLY, ELSE, WHILE, LBRACK, RBRACK, OF,SCANF;
 terminal            FOR,TO,INTEGER,FLOAT,CHAR,BOOLEAN,STRING, ARRAY;
 terminal Integer   NUMBER;
 terminal String   ID;
@@ -63,10 +63,12 @@ non terminal List<ExpressionNode> index_list;
             | STRING : s  {: RESULT = s; :}
             | ARRAY LBRACK NUMBER RBRACK OF type:a  {: RESULT = a; :}
             ;
+
    statement_list ::= statement_list:xD statement:xP {:  xD.add(xP); RESULT = xD; :}
                  | {: List<StatementNode> nodeList = new ArrayList<StatementNode>(); RESULT = nodeList; :}
                   ;
    statement ::= PRINT expr:e SEMI {:  RESULT = new PrintNode(e); :}
+                 | SCANF expr:e SEMI {: RESULT = new ScanNode(e); :}
                  | id:i EQUALS expr:e SEMI {: RESULT = new AssignNode(e, i); :}
                  | IF LPAREN expr:e RPAREN LCURLY statement_list:s RCURLY {: RESULT = new IfNode(e,s,null); :}
                  | IF LPAREN expr:e RPAREN LCURLY statement_list:s RCURLY ELSE LCURLY statement_list:s2 RCURLY {: RESULT = new IfNode(e,s,s2); :}

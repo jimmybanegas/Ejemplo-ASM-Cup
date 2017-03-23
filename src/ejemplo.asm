@@ -7,18 +7,28 @@ section '.data' data readable writeable
 
        str_pause db  'pause' ,0
         @intprintstr db 'Resultado: %d' ,10,0
+     @intscanstr db '%d',0
+		temp4 dd 0
 		temp3 dd 0
 		temp2 dd 0
 		temp1 dd 0
 		@a@ dd 0
 		@b@ dd 0
 		@c@ dd 0
+		@d@ dd 0
+		@e@ dd 0
 		@x@ db 0
 
 
 section '.code' code readable executable
 
   start: 
+		mov eax,1
+		add eax,3
+		mov [temp1],eax
+		mov eax,[temp1]
+		mov [@e@],eax
+		
 		mov eax,0
 		mov [@a@],eax
 		
@@ -38,8 +48,8 @@ section '.code' code readable executable
 		add esp,8
 		mov eax,[@a@]
 		add eax,1
-		mov [temp1],eax
-		mov eax,[temp1]
+		mov [temp2],eax
+		mov eax,[temp2]
 		mov [@a@],eax
 		jmp while1
 		
@@ -48,8 +58,8 @@ section '.code' code readable executable
 		mov eax,100
 		mov ecx,2
 		div ecx
-		mov [temp2],eax
-		mov eax,[temp2]
+		mov [temp3],eax
+		mov eax,[temp3]
 		mov [@c@],eax
 		
 		mov eax,50
@@ -61,13 +71,33 @@ section '.code' code readable executable
 		mov eax,[@c@]
 		mov ebx,2
 		mul ebx
-		mov [temp3],eax
-		push [temp3]
+		mov [temp4],eax
+		push [temp4]
 		push @intprintstr
 		call [printf]
 		add esp,8
 		
 		end_if1:
+		
+		mov eax,0
+		mov [@d@],eax
+		
+		for1:
+		mov eax, 2
+		cmp [@d@], eax
+		jge end_for1
+		push @a@
+		push @intscanstr
+		call [scanf]
+		add esp, 8
+		push [@a@]
+		push @intprintstr
+		call [printf]
+		add esp,8
+		inc [@d@]
+		jmp for1
+		
+		end_for1:
     
 ;Finalizar el proceso
       push str_pause

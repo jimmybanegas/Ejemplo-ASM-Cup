@@ -68,7 +68,8 @@ public class Main {
                 "section '.data' data readable writeable\n" +
                 "\n" +
                 "       str_pause db  'pause' ,0\n    " +
-                "    @intprintstr db 'Resultado: %d' ,10,0";
+                "    @intprintstr db 'Resultado: %d' ,10,0\n " +
+                "    @intscanstr db '%d',0";
 
         writer.write(headers);
 
@@ -99,8 +100,6 @@ public class Main {
                 "      call [ExitProcess]   \n";
 
         writer.write(finalizarProceso);
-
-
 
         String importLibrariesSection = "\nsection '.idata' import data readable writeable\n" +
                 "\n" +
